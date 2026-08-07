@@ -1,17 +1,42 @@
 import styles from './Home.module.css'
 
-import AboutSection from './AboutSection'
-import ProjectsPreviewSection from './ProjectsPreviewSection'
-import CertificatesPreviewSection from './CertificatesPreviewSection'
-import ContactSection from './ContactSection'
+import NeuralBackground
+  from '../../components/background/NeuralBackground'
+
+import AboutSection
+  from './AboutSection'
+
+import ProjectsPreviewSection
+  from './ProjectsPreviewSection'
+
+import CertificatesPreviewSection
+  from './CertificatesPreviewSection'
+
+import ContactSection
+  from './ContactSection'
+
+import useActiveSection
+  from '../../hooks/useActiveSection'
 
 function Home() {
+  const activeSection =
+    useActiveSection()
+
   return (
     <main className={styles.home}>
-      <AboutSection />
-      <ProjectsPreviewSection />
-      <CertificatesPreviewSection />
-      <ContactSection />
+      <NeuralBackground
+        section={activeSection}
+      />
+
+      <div className={styles.content}>
+        <AboutSection />
+
+        <ProjectsPreviewSection />
+
+        <CertificatesPreviewSection />
+
+        <ContactSection />
+      </div>
     </main>
   )
 }

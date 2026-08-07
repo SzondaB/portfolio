@@ -2,16 +2,32 @@
   min-height: 100vh;
 
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+
+  padding-top: 70px;
 
   background: transparent;
 }
 
 .content {
-  width: min(100% - 48px, var(--max-width));
+  width: min(100% - 32px, var(--max-width));
   margin: 0 auto;
 
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(220px, 320px);
+
+  align-items: center;
+
+  gap: 72px;
+
   will-change: opacity, transform;
+}
+
+.text {
+  min-width: 0;
 }
 
 .eyebrow {
@@ -51,4 +67,62 @@
 
   font-size: 1.2rem;
   line-height: 1.7;
+}
+
+.photoWrapper {
+  position: relative;
+
+  width: 100%;
+
+  justify-self: end;
+}
+
+.photoWrapper::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 10% -8%;
+
+  z-index: -1;
+
+  background:
+    rgba(88, 166, 255, 0.14);
+
+  filter: blur(60px);
+}
+
+.photo {
+  display: block;
+
+  width: 100%;
+  max-width: 320px;
+
+  aspect-ratio: 4 / 5;
+
+  object-fit: cover;
+
+  border-radius: 24px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.1);
+
+  box-shadow:
+    0 20px 60px
+    rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 850px) {
+  .content {
+    grid-template-columns: 1fr;
+
+    gap: 48px;
+  }
+
+  .photoWrapper {
+    justify-self: start;
+
+    max-width: 280px;
+  }
 }

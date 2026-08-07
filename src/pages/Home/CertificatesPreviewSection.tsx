@@ -11,7 +11,7 @@ function CertificatesPreviewSection() {
     visibility
   } = useSectionProgress<HTMLElement>()
 
-  useSectionMagnet(ref, 70, 140)
+  useSectionMagnet(ref, 50, 140)
 
   const translateY =
     (1 - visibility) * 60

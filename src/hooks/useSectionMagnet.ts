@@ -2,8 +2,8 @@ import { useEffect, type RefObject } from 'react'
 
 function useSectionMagnet<T extends HTMLElement>(
   ref: RefObject<T | null>,
-  magnetDistance = 80,
-  delay = 30
+  magnetDistance = 30,
+  delay = 120
 ) {
   useEffect(() => {
     let timeout: number | null = null
