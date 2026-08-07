@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Navbar from './components/layout/Navbar'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import Navbar from './components/layout/Navbar'
 import Home from './pages/Home/Home'
 import Projects from './pages/Projects/Projects'
 import ProjectDetails from './pages/ProjectDetails/ProjectDetails'
@@ -13,7 +13,11 @@ function App() {
       <Navbar />
 
       <Routes>
-        ...
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/:projectId" element={<ProjectDetails />} />
+        <Route path="/certificates" element={<Certificates />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )

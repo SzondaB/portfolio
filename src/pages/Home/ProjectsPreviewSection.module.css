@@ -1,0 +1,106 @@
+.section {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+
+  background: transparent;
+}
+
+.content {
+  width: min(100% - 48px, var(--max-width));
+  margin: 0 auto;
+
+  will-change: opacity, transform;
+}
+
+.eyebrow {
+  margin: 0 0 16px;
+
+  color: var(--color-primary);
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 800px;
+
+  margin: 0;
+
+  font-size: clamp(2.8rem, 5vw, 5.5rem);
+  line-height: 1.1;
+}
+
+.description {
+  max-width: 750px;
+
+  margin-top: 24px;
+
+  color: var(--color-text-secondary);
+
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.previewCard {
+  max-width: 700px;
+
+  margin-top: 40px;
+  padding: 28px;
+
+  background-color: var(--color-surface);
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+}
+
+.cardLabel {
+  margin: 0 0 8px;
+
+  color: var(--color-primary);
+
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.previewCard h3 {
+  margin: 0 0 14px;
+
+  font-size: 1.5rem;
+}
+
+.previewCard p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.6;
+}
+
+.button {
+  display: inline-block;
+
+  margin-top: 32px;
+  padding: 12px 20px;
+
+  color: var(--color-background);
+  background-color: var(--color-primary);
+
+  border-radius: var(--radius-small);
+
+  font-weight: 600;
+
+  transition:
+    background-color var(--transition),
+    transform var(--transition);
+}
+
+.button:hover {
+  background-color: var(--color-primary-hover);
+
+  transform: translateY(-2px);
+}

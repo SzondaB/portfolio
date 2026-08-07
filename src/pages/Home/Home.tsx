@@ -1,13 +1,17 @@
+import styles from './Home.module.css'
+
+import AboutSection from './AboutSection'
+import ProjectsPreviewSection from './ProjectsPreviewSection'
+import CertificatesPreviewSection from './CertificatesPreviewSection'
+import ContactSection from './ContactSection'
+
 function Home() {
   return (
-    <main className="min-h-screen p-10">
-      <h1 className="text-4xl font-bold">
-        Rólam
-      </h1>
-
-      <p className="mt-4 text-lg">
-        Ez lesz a portfólió kezdőoldala.
-      </p>
+    <main className={styles.home}>
+      <AboutSection />
+      <ProjectsPreviewSection />
+      <CertificatesPreviewSection />
+      <ContactSection />
     </main>
   )
 }
