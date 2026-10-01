@@ -2,49 +2,66 @@ import {
   createContext,
   useEffect,
   useMemo,
-  useState,
-  type ReactNode
+  useState
+} from 'react'
+
+import type {
+  ReactNode
 } from 'react'
 
 import {
-  translations,
-  type Language
+  translations
 } from '../locales/translations'
+
+export type Language =
+  | 'hu'
+  | 'en'
 
 interface LanguageContextValue {
   language: Language
-  setLanguage: (language: Language) => void
-  t: (typeof translations)[Language]
+
+  setLanguage: (
+    language: Language
+  ) => void
+
+  t:
+    (typeof translations)[Language]
 }
 
 export const LanguageContext =
-  createContext<LanguageContextValue | undefined>(
-    undefined
-  )
+  createContext<
+    LanguageContextValue | undefined
+  >(undefined)
 
 interface LanguageProviderProps {
   children: ReactNode
 }
 
-function getInitialLanguage(): Language {
-  const savedLanguage =
-    localStorage.getItem('language')
-
-  if (
-    savedLanguage === 'hu' ||
-    savedLanguage === 'en'
-  ) {
-    return savedLanguage
-  }
-
-  return 'hu'
-}
-
 export function LanguageProvider({
   children
 }: LanguageProviderProps) {
-  const [language, setLanguage] =
-    useState<Language>(getInitialLanguage)
+  const [language, setLanguageState] =
+    useState<Language>(() => {
+      const storedLanguage =
+        localStorage.getItem(
+          'language'
+        )
+
+      if (
+        storedLanguage === 'hu' ||
+        storedLanguage === 'en'
+      ) {
+        return storedLanguage
+      }
+
+      return 'hu'
+    })
+
+  const setLanguage = (
+    newLanguage: Language
+  ) => {
+    setLanguageState(newLanguage)
+  }
 
   useEffect(() => {
     localStorage.setItem(
@@ -56,14 +73,15 @@ export function LanguageProvider({
       language
   }, [language])
 
-  const value = useMemo(
-    () => ({
-      language,
-      setLanguage,
-      t: translations[language]
-    }),
-    [language]
-  )
+  const value =
+    useMemo<LanguageContextValue>(
+      () => ({
+        language,
+        setLanguage,
+        t: translations[language]
+      }),
+      [language]
+    )
 
   return (
     <LanguageContext.Provider
