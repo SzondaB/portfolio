@@ -1,4 +1,6 @@
 import {
+  useEffect,
+  useRef,
   useState
 } from 'react'
 
@@ -35,6 +37,54 @@ function CertificateCard({
 
   const [isFlipped, setIsFlipped] =
     useState(false)
+
+  const pdfWrapperRef =
+    useRef<HTMLDivElement | null>(null)
+
+  const [pdfWidth, setPdfWidth] =
+    useState(380)
+
+  useEffect(() => {
+    const element = pdfWrapperRef.current
+
+    if (!element) {
+      return
+    }
+
+    const updatePdfWidth = () => {
+      const styles =
+        window.getComputedStyle(element)
+
+      const paddingLeft =
+        parseFloat(styles.paddingLeft)
+
+      const paddingRight =
+        parseFloat(styles.paddingRight)
+
+      const availableWidth =
+        element.clientWidth -
+        paddingLeft -
+        paddingRight
+
+      setPdfWidth(
+        Math.min(
+          Math.max(availableWidth, 1),
+          380
+        )
+      )
+    }
+
+    updatePdfWidth()
+
+    const resizeObserver =
+      new ResizeObserver(updatePdfWidth)
+
+    resizeObserver.observe(element)
+
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, [])
 
   return (
     <article className={styles.card}>
@@ -115,6 +165,7 @@ function CertificateCard({
           </div>
 
           <div
+            ref={pdfWrapperRef}
             className={styles.pdfWrapper}
           >
             <Document
@@ -146,7 +197,7 @@ function CertificateCard({
             >
               <Page
                 pageNumber={1}
-                width={380}
+                width={pdfWidth}
                 renderTextLayer={false}
                 renderAnnotationLayer={
                   false

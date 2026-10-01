@@ -2,28 +2,37 @@
   display: inline-flex;
   align-items: center;
 
+  flex-shrink: 0;
+
   gap: 8px;
 
   width: fit-content;
 
   padding: 7px 14px;
 
-  border: 1px solid currentColor;
+  border:
+    1px solid currentColor;
+
   border-radius: 999px;
 
   font-size: 0.85rem;
   font-weight: 600;
 
   line-height: 1;
+
+  white-space: nowrap;
 }
 
 .dot {
+  flex-shrink: 0;
+
   width: 7px;
   height: 7px;
 
   border-radius: 50%;
 
-  background-color: currentColor;
+  background-color:
+    currentColor;
 }
 
 .active {
@@ -40,4 +49,37 @@
 
 .archived {
   color: #f85149;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 768px) {
+  .status {
+    gap: 7px;
+
+    padding: 6px 11px;
+
+    font-size: 0.78rem;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+
+/* =========================
+   VERY SMALL MOBILE
+   ========================= */
+
+@media (max-width: 360px) {
+  .status {
+    padding: 6px 10px;
+
+    font-size: 0.74rem;
+  }
 }

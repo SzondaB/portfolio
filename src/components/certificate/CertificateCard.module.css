@@ -338,7 +338,86 @@
     padding: 24px;
   }
 
+  .pdfWrapper {
+    padding: 8px;
+  }
+
   .actions {
     justify-content: center;
+
+    gap: 10px;
+  }
+}
+
+
+/* ========================
+   SMALL MOBILE
+   ======================== */
+
+@media (max-width: 480px) {
+  .card,
+  .inner {
+    min-height: 610px;
+  }
+
+  .front,
+  .back {
+    padding: 18px;
+  }
+
+  .backHeader {
+    margin-bottom: 14px;
+  }
+
+  .pdfWrapper {
+    padding: 6px;
+
+    border-radius: 12px;
+  }
+
+  .pdfPage {
+    border-radius: 6px;
+  }
+
+  .actions {
+    width: 100%;
+
+    margin-top: 14px;
+
+    gap: 10px;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 11px 12px;
+
+    text-align: center;
+  }
+}
+
+
+/* ========================
+   VERY SMALL MOBILE
+   ======================== */
+
+@media (max-width: 360px) {
+  .front,
+  .back {
+    padding: 14px;
+  }
+
+  .pdfWrapper {
+    padding: 4px;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    padding: 10px 8px;
+
+    font-size: 0.9rem;
   }
 }
