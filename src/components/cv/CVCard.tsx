@@ -1,4 +1,10 @@
 import {
+  useEffect,
+  useRef,
+  useState
+} from 'react'
+
+import {
   Document,
   Page,
   pdfjs
@@ -28,10 +34,47 @@ function CVCard({
 }: CVCardProps) {
   const { t } = useLanguage()
 
+  const previewRef =
+    useRef<HTMLDivElement | null>(null)
+
+  const [pdfWidth, setPdfWidth] =
+    useState(380)
+
   const documentText =
     cv.id === 'hu'
       ? t.cv.documents.hu
       : t.cv.documents.en
+
+  useEffect(() => {
+    const preview = previewRef.current
+
+    if (!preview) {
+      return
+    }
+
+    const updatePdfWidth = () => {
+      const availableWidth =
+        preview.clientWidth - 32
+
+      setPdfWidth(
+        Math.min(
+          Math.max(availableWidth, 200),
+          380
+        )
+      )
+    }
+
+    updatePdfWidth()
+
+    const resizeObserver =
+      new ResizeObserver(updatePdfWidth)
+
+    resizeObserver.observe(preview)
+
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, [])
 
   return (
     <article
@@ -42,7 +85,7 @@ function CVCard({
       }`}
     >
       <div className={styles.header}>
-        <div>
+        <div className={styles.heading}>
           <p className={styles.language}>
             {documentText.language}
           </p>
@@ -69,7 +112,10 @@ function CVCard({
 
       {cv.available && cv.file ? (
         <>
-          <div className={styles.preview}>
+          <div
+            ref={previewRef}
+            className={styles.preview}
+          >
             <Document
               file={cv.file}
               loading={
@@ -89,11 +135,9 @@ function CVCard({
             >
               <Page
                 pageNumber={1}
-                scale={0.55}
+                width={pdfWidth}
                 renderTextLayer={false}
-                renderAnnotationLayer={
-                  false
-                }
+                renderAnnotationLayer={false}
                 className={styles.page}
               />
             </Document>
