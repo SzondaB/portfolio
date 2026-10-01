@@ -14,7 +14,7 @@ import {
 interface LanguageContextValue {
   language: Language
   setLanguage: (language: Language) => void
-  t: typeof translations.hu
+  t: (typeof translations)[Language]
 }
 
 export const LanguageContext =

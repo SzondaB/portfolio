@@ -1,6 +1,4 @@
 import {
-  useEffect,
-  useRef,
   useState
 } from 'react'
 
@@ -37,44 +35,6 @@ function CertificateCard({
 
   const [isFlipped, setIsFlipped] =
     useState(false)
-
-  const pdfContainerRef =
-    useRef<HTMLDivElement | null>(null)
-
-  const [pdfHeight, setPdfHeight] =
-    useState(360)
-
-  useEffect(() => {
-    const element =
-      pdfContainerRef.current
-
-    if (!element) return
-
-    const updatePdfSize = () => {
-      const availableHeight =
-        element.clientHeight - 24
-
-      setPdfHeight(
-        Math.max(
-          200,
-          availableHeight
-        )
-      )
-    }
-
-    updatePdfSize()
-
-    const resizeObserver =
-      new ResizeObserver(
-        updatePdfSize
-      )
-
-    resizeObserver.observe(element)
-
-    return () => {
-      resizeObserver.disconnect()
-    }
-  }, [])
 
   return (
     <article className={styles.card}>
@@ -155,7 +115,6 @@ function CertificateCard({
           </div>
 
           <div
-            ref={pdfContainerRef}
             className={styles.pdfWrapper}
           >
             <Document
