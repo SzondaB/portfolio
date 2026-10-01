@@ -5,7 +5,7 @@ export const projects: Project[] = [
     id: 'adversarial-neural-networks',
 
     title:
-      'Versengő neurális hálózatok biztonsági rendszerekben történő alkalmazható\u00ADságának vizsgálata',
+      'Versengő neurális hálózatok biztonsági rendszerek\u00ADben történő alkalmazható\u00ADságának vizsgálata',
 
     shortTitle:
       'Versengő neurális hálózatok',
@@ -247,7 +247,7 @@ export const projects: Project[] = [
     id: 'book-exchange',
 
     title:
-      'Könyvkölcsönző és könyvcsere rendszer',
+      'Könyv\u00ADkölcsönző és könyvcsere rendszer',
 
     description:
       'Full-stack webalkalmazás könyvek kezelésére, vásárlására és felhasználók közötti tranzakciók lebonyolítására.',
