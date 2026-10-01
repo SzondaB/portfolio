@@ -2,6 +2,7 @@ import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 
 import RootLayout from './components/layout/RootLayout'
 
@@ -46,7 +47,10 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <>
+      <RouterProvider router={router} />
+      <Analytics />
+    </>
   )
 }
 
