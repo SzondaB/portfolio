@@ -1,15 +1,24 @@
 import { Link } from 'react-router-dom'
 
-import styles from './ProjectsPreviewSection.module.css'
+import styles
+  from './ProjectsPreviewSection.module.css'
 
-import useSectionProgress from '../../hooks/useSectionProgress'
-import useSectionMagnet from '../../hooks/useSectionMagnet'
+import useSectionProgress
+  from '../../hooks/useSectionProgress'
+
+import useSectionMagnet
+  from '../../hooks/useSectionMagnet'
+
+import useLanguage
+  from '../../hooks/useLanguage'
 
 function ProjectsPreviewSection() {
   const {
     ref,
     visibility
   } = useSectionProgress<HTMLElement>()
+
+  const { t } = useLanguage()
 
   useSectionMagnet(ref, 50, 140)
 
@@ -26,39 +35,36 @@ function ProjectsPreviewSection() {
         className={styles.content}
         style={{
           opacity: visibility,
-          transform: `translateY(${translateY}px)`
+          transform:
+            `translateY(${translateY}px)`
         }}
       >
         <p className={styles.eyebrow}>
-          Projektek
+          {t.home.projects.eyebrow}
         </p>
 
         <h2 className={styles.title}>
-          Saját fejlesztések és kutatási munkák
+          {t.home.projects.title}
         </h2>
 
         <p className={styles.description}>
-          Projektjeim során többek között
-          mesterséges intelligenciával,
-          neurális hálózatokkal,
-          webfejlesztéssel és automatizálással
-          foglalkozom.
+          {t.home.projects.description}
         </p>
 
         <div className={styles.previewCard}>
           <p className={styles.cardLabel}>
-            Kiemelt projekt
+            {t.home.projects.featuredLabel}
           </p>
 
           <h3>
-            Alice–Bob–Eve neurális kommunikáció
+            {t.home.projects.featuredTitle}
           </h3>
 
           <p>
-            Versengő neurális hálózatokon alapuló
-            kutatási projekt, amelyben a
-            mintázatfelismerés és annak
-            kihasználása kiemelt szerepet kap.
+            {
+              t.home.projects
+                .featuredDescription
+            }
           </p>
         </div>
 
@@ -66,7 +72,7 @@ function ProjectsPreviewSection() {
           to="/projects"
           className={styles.button}
         >
-          Projektek megtekintése
+          {t.home.projects.button}
         </Link>
       </div>
     </section>

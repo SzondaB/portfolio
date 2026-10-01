@@ -99,3 +99,23 @@
 
   transform: translateY(-1px);
 }
+
+.language button {
+  opacity: 0.45;
+
+  transition:
+    color var(--transition),
+    opacity var(--transition);
+}
+
+.language button:hover {
+  opacity: 0.8;
+
+  color: var(--color-primary);
+}
+
+.language .activeLanguage {
+  opacity: 1;
+
+  color: var(--color-text);
+}

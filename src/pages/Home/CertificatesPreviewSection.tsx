@@ -1,15 +1,24 @@
 import { Link } from 'react-router-dom'
 
-import styles from './CertificatesPreviewSection.module.css'
+import styles
+  from './CertificatesPreviewSection.module.css'
 
-import useSectionProgress from '../../hooks/useSectionProgress'
-import useSectionMagnet from '../../hooks/useSectionMagnet'
+import useSectionProgress
+  from '../../hooks/useSectionProgress'
+
+import useSectionMagnet
+  from '../../hooks/useSectionMagnet'
+
+import useLanguage
+  from '../../hooks/useLanguage'
 
 function CertificatesPreviewSection() {
   const {
     ref,
     visibility
   } = useSectionProgress<HTMLElement>()
+
+  const { t } = useLanguage()
 
   useSectionMagnet(ref, 50, 140)
 
@@ -26,22 +35,20 @@ function CertificatesPreviewSection() {
         className={styles.content}
         style={{
           opacity: visibility,
-          transform: `translateY(${translateY}px)`
+          transform:
+            `translateY(${translateY}px)`
         }}
       >
         <p className={styles.eyebrow}>
-          Tanúsítványok
+          {t.home.certificates.eyebrow}
         </p>
 
         <h2 className={styles.title}>
-          Folyamatos szakmai fejlődés
+          {t.home.certificates.title}
         </h2>
 
         <p className={styles.description}>
-          Tanulmányaim mellett különböző
-          mesterséges intelligencia és deep
-          learning témájú szakmai képzéseken is
-          részt vettem.
+          {t.home.certificates.description}
         </p>
 
         <div className={styles.previewCard}>
@@ -54,8 +61,10 @@ function CertificatesPreviewSection() {
           </h3>
 
           <p>
-            Egyike a megszerzett NVIDIA
-            tanúsítványaimnak.
+            {
+              t.home.certificates
+                .featuredDescription
+            }
           </p>
         </div>
 
@@ -63,7 +72,7 @@ function CertificatesPreviewSection() {
           to="/certificates"
           className={styles.button}
         >
-          Tanúsítványok megtekintése
+          {t.home.certificates.button}
         </Link>
       </div>
     </section>

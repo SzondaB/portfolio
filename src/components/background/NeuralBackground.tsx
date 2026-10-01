@@ -9,8 +9,12 @@ import type {
   HomeSection
 } from '../../hooks/useActiveSection'
 
+type BackgroundSection =
+  | HomeSection
+  | 'cv'
+
 interface NeuralBackgroundProps {
-  section: HomeSection
+  section: BackgroundSection
 }
 
 interface Node {
@@ -35,7 +39,7 @@ interface Theme {
   rgb: RGB
 }
 
-const themes: Record<HomeSection, Theme> = {
+const themes: Record<BackgroundSection, Theme> = {
   about: {
     background: '#0D1117',
     accent: '#58A6FF',
@@ -77,6 +81,17 @@ const themes: Record<HomeSection, Theme> = {
       r: 165,
       g: 180,
       b: 252
+    }
+  },
+
+  cv: {
+    background: '#0D1220',
+    accent: '#818CF8',
+
+    rgb: {
+      r: 129,
+      g: 140,
+      b: 248
     }
   }
 }
@@ -132,13 +147,18 @@ function NeuralBackground({
 
     const resizeCanvas = () => {
       const pixelRatio =
-        Math.min(window.devicePixelRatio || 1, 2)
+        Math.min(
+          window.devicePixelRatio || 1,
+          2
+        )
 
       canvas.width =
-        window.innerWidth * pixelRatio
+        window.innerWidth *
+        pixelRatio
 
       canvas.height =
-        window.innerHeight * pixelRatio
+        window.innerHeight *
+        pixelRatio
 
       canvas.style.width =
         `${window.innerWidth}px`
@@ -159,7 +179,11 @@ function NeuralBackground({
     const createNodes = () => {
       nodes.length = 0
 
-      for (let i = 0; i < nodeCount; i++) {
+      for (
+        let i = 0;
+        i < nodeCount;
+        i++
+      ) {
         nodes.push({
           x:
             Math.random() *
@@ -178,7 +202,8 @@ function NeuralBackground({
             0.22,
 
           radius:
-            Math.random() * 1.4 + 0.8
+            Math.random() * 1.4 +
+            0.8
         })
       }
     }
@@ -216,14 +241,16 @@ function NeuralBackground({
 
         if (
           node.x <= 0 ||
-          node.x >= window.innerWidth
+          node.x >=
+            window.innerWidth
         ) {
           node.vx *= -1
         }
 
         if (
           node.y <= 0 ||
-          node.y >= window.innerHeight
+          node.y >=
+            window.innerHeight
         ) {
           node.vy *= -1
         }
@@ -247,14 +274,19 @@ function NeuralBackground({
           j < nodes.length;
           j++
         ) {
-          const first = nodes[i]
-          const second = nodes[j]
+          const first =
+            nodes[i]
+
+          const second =
+            nodes[j]
 
           const dx =
-            first.x - second.x
+            first.x -
+            second.x
 
           const dy =
-            first.y - second.y
+            first.y -
+            second.y
 
           const distance =
             Math.sqrt(
@@ -269,7 +301,7 @@ function NeuralBackground({
             const opacity =
               1 -
               distance /
-              connectionDistance
+                connectionDistance
 
             context.beginPath()
 
@@ -344,7 +376,9 @@ function NeuralBackground({
       drawNodes()
 
       animationFrame =
-        requestAnimationFrame(animate)
+        requestAnimationFrame(
+          animate
+        )
     }
 
     const handleResize = () => {
@@ -373,11 +407,14 @@ function NeuralBackground({
     }
   }, [])
 
-  const theme = themes[section]
+  const theme =
+    themes[section]
 
   return (
     <div
-      className={styles.background}
+      className={
+        styles.background
+      }
       style={{
         backgroundColor:
           theme.background,
@@ -388,11 +425,15 @@ function NeuralBackground({
     >
       <canvas
         ref={canvasRef}
-        className={styles.canvas}
+        className={
+          styles.canvas
+        }
       />
 
       <div
-        className={styles.glow}
+        className={
+          styles.glow
+        }
       />
     </div>
   )

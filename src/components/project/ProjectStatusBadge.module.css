@@ -1,0 +1,43 @@
+.status {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+
+  width: fit-content;
+
+  padding: 7px 14px;
+
+  border: 1px solid currentColor;
+  border-radius: 999px;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  line-height: 1;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background-color: currentColor;
+}
+
+.active {
+  color: #3fb950;
+}
+
+.completed {
+  color: #58a6ff;
+}
+
+.paused {
+  color: #d29922;
+}
+
+.archived {
+  color: #f85149;
+}

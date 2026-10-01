@@ -1,70 +1,141 @@
-import { useEffect, useState } from 'react'
+import {
+  useEffect,
+  useState
+} from 'react'
 
 export type HomeSection =
   | 'about'
   | 'projects'
   | 'certificates'
   | 'contact'
+  | 'cv'
+
+interface SectionDefinition {
+  id: string
+  name: HomeSection
+}
+
+const sections: SectionDefinition[] = [
+  {
+    id: 'about',
+    name: 'about'
+  },
+  {
+    id: 'projects-preview',
+    name: 'projects'
+  },
+  {
+    id: 'certificates-preview',
+    name: 'certificates'
+  },
+  {
+    id: 'contact',
+    name: 'contact'
+  }
+]
 
 function useActiveSection() {
   const [activeSection, setActiveSection] =
     useState<HomeSection>('about')
 
   useEffect(() => {
-    const sections: {
-      id: string
-      name: HomeSection
-    }[] = [
-      {
-        id: 'about',
-        name: 'about'
-      },
-      {
-        id: 'projects-preview',
-        name: 'projects'
-      },
-      {
-        id: 'certificates-preview',
-        name: 'certificates'
-      },
-      {
-        id: 'contact',
-        name: 'contact'
-      }
-    ]
+    let animationFrame = 0
 
-    const observers: IntersectionObserver[] = []
+    const updateActiveSection = () => {
+      const viewportCenter =
+        window.innerHeight / 2
 
-    sections.forEach(section => {
-      const element =
-        document.getElementById(section.id)
+      let closestSection:
+        HomeSection = 'about'
 
-      if (!element) return
+      let smallestDistance =
+        Number.POSITIVE_INFINITY
 
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(section.name)
-          }
-        },
-        {
-          /*
-           * Csak a képernyő középső
-           * 30%-át tekintjük aktív zónának.
-           */
-          rootMargin: '-35% 0px -35% 0px',
-          threshold: 0
+      for (const section of sections) {
+        const element =
+          document.getElementById(
+            section.id
+          )
+
+        if (!element) continue
+
+        const rect =
+          element.getBoundingClientRect()
+
+        /*
+         * A szekció vizuális középpontja.
+         */
+        const sectionCenter =
+          rect.top +
+          rect.height / 2
+
+        const distance =
+          Math.abs(
+            sectionCenter -
+            viewportCenter
+          )
+
+        if (
+          distance <
+          smallestDistance
+        ) {
+          smallestDistance =
+            distance
+
+          closestSection =
+            section.name
         }
+      }
+
+      setActiveSection(
+        closestSection
+      )
+    }
+
+    const handleScroll = () => {
+      cancelAnimationFrame(
+        animationFrame
       )
 
-      observer.observe(element)
-      observers.push(observer)
-    })
+      animationFrame =
+        requestAnimationFrame(
+          updateActiveSection
+        )
+    }
+
+    const handleResize = () => {
+      handleScroll()
+    }
+
+    updateActiveSection()
+
+    window.addEventListener(
+      'scroll',
+      handleScroll,
+      {
+        passive: true
+      }
+    )
+
+    window.addEventListener(
+      'resize',
+      handleResize
+    )
 
     return () => {
-      observers.forEach(observer => {
-        observer.disconnect()
-      })
+      cancelAnimationFrame(
+        animationFrame
+      )
+
+      window.removeEventListener(
+        'scroll',
+        handleScroll
+      )
+
+      window.removeEventListener(
+        'resize',
+        handleResize
+      )
     }
   }, [])
 

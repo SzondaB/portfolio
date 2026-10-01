@@ -10,6 +10,7 @@
 .content {
   width: min(100% - 48px, var(--max-width));
   margin: 0 auto;
+  margin-top: 50px;
 
   will-change: opacity, transform;
 }

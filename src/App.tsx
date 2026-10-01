@@ -1,31 +1,52 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useEffect } from 'react'
+import {
+  createBrowserRouter,
+  RouterProvider
+} from 'react-router-dom'
 
-import Navbar from './components/layout/Navbar'
+import RootLayout from './components/layout/RootLayout'
+
 import Home from './pages/Home/Home'
 import Projects from './pages/Projects/Projects'
 import ProjectDetails from './pages/ProjectDetails/ProjectDetails'
 import Certificates from './pages/Certificates/Certificates'
-import NotFound from './pages/NotFound/NotFound'
 import CV from './pages/CV/CV'
+import NotFound from './pages/NotFound/NotFound'
+
+const router = createBrowserRouter([
+  {
+    element: <RootLayout />,
+    children: [
+      {
+        path: '/',
+        element: <Home />
+      },
+      {
+        path: '/projects',
+        element: <Projects />
+      },
+      {
+        path: '/projects/:projectId',
+        element: <ProjectDetails />
+      },
+      {
+        path: '/certificates',
+        element: <Certificates />
+      },
+      {
+        path: '/cv',
+        element: <CV />
+      },
+      {
+        path: '*',
+        element: <NotFound />
+      }
+    ]
+  }
+])
 
 function App() {
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
   return (
-    <BrowserRouter>
-      <Navbar />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/projects/:projectId" element={<ProjectDetails />} />
-        <Route path="/certificates" element={<Certificates />} />
-        <Route path="/cv" element={<CV />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   )
 }
 

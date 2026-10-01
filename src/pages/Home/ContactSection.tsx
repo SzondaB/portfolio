@@ -1,7 +1,16 @@
-import styles from './ContactSection.module.css'
+import { useState } from 'react'
 
-import useSectionProgress from '../../hooks/useSectionProgress'
-import useSectionMagnet from '../../hooks/useSectionMagnet'
+import styles
+  from './ContactSection.module.css'
+
+import useSectionProgress
+  from '../../hooks/useSectionProgress'
+
+import useLanguage
+  from '../../hooks/useLanguage'
+
+const EMAIL =
+  'szondabenjamin00@gmail.com'
 
 function ContactSection() {
   const {
@@ -9,10 +18,39 @@ function ContactSection() {
     visibility
   } = useSectionProgress<HTMLElement>()
 
-  useSectionMagnet(ref, 50, 140)
+  const { t } = useLanguage()
+
+  const [showEmail, setShowEmail] =
+    useState(false)
+
+  const [copied, setCopied] =
+    useState(false)
 
   const translateY =
     (1 - visibility) * 60
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        EMAIL
+      )
+
+      setCopied(true)
+
+      window.setTimeout(() => {
+        setCopied(false)
+      }, 2000)
+    }
+    catch {
+      setCopied(false)
+    }
+  }
+
+  const toggleEmail = () => {
+    setShowEmail(previous => !previous)
+
+    setCopied(false)
+  }
 
   return (
     <section
@@ -24,43 +62,109 @@ function ContactSection() {
         className={styles.content}
         style={{
           opacity: visibility,
-          transform: `translateY(${translateY}px)`
+          transform:
+            `translateY(${translateY}px)`
         }}
       >
-        <p className={styles.eyebrow}>
-          Kapcsolat
-        </p>
+        <div className={styles.main}>
+          <p className={styles.eyebrow}>
+            {t.home.contact.eyebrow}
+          </p>
 
-        <h2 className={styles.title}>
-          Elérhetőségek
-        </h2>
+          <h2 className={styles.title}>
+            {t.home.contact.title}
+          </h2>
 
-        <p className={styles.description}>
-          Itt lesznek majd az elérhetőségeim és
-          a szakmai profiljaim.
-        </p>
+          <p className={styles.description}>
+            {t.home.contact.description}
+          </p>
 
-        <div className={styles.links}>
-          <a href="mailto:pelda@email.hu">
-            E-mail
-          </a>
+          <div className={styles.links}>
+            <div
+              className={styles.emailContainer}
+            >
+              <button
+                type="button"
+                className={styles.emailToggle}
+                onClick={toggleEmail}
+              >
+                E-mail
+              </button>
 
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
+              {showEmail && (
+                <div
+                  className={styles.emailArea}
+                >
+                  <div
+                    className={styles.emailBox}
+                  >
+                    <input
+                      type="text"
+                      value={EMAIL}
+                      readOnly
+                      className={
+                        styles.emailInput
+                      }
+                      aria-label={
+                        t.home.contact
+                          .emailAddress
+                      }
+                    />
 
-          <a
-            href="https://linkedin.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            LinkedIn
-          </a>
+                    <button
+                      type="button"
+                      className={
+                        styles.copyButton
+                      }
+                      onClick={copyEmail}
+                    >
+                      {copied
+                        ? t.home.contact.copied
+                        : t.home.contact.copy}
+                    </button>
+                  </div>
+
+                  <span
+                    className={`${
+                      styles.copyMessage
+                    } ${
+                      copied
+                        ? styles.copyMessageVisible
+                        : ''
+                    }`}
+                  >
+                    {
+                      t.home.contact
+                        .copiedMessage
+                    }
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <a
+              href="https://github.com/SzondaB"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.link}
+            >
+              GitHub
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/benjamin-szonda"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.link}
+            >
+              LinkedIn
+            </a>
+          </div>
         </div>
+
+        <footer className={styles.footer}>
+          © 2026 Szonda Benjamin Márk
+        </footer>
       </div>
     </section>
   )
