@@ -59,6 +59,7 @@
   align-items: flex-start;
   justify-content: space-between;
 
+  width: 100%;
   min-width: 0;
 
   gap: 24px;
@@ -91,18 +92,15 @@
 
   white-space: normal;
 
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   word-break: normal;
-
-  hyphens: auto;
-  -webkit-hyphens: auto;
 }
 
 .title {
   position: relative;
 
   width: 100%;
-  max-width: 950px;
+  max-width: 1300px;
   min-width: 0;
 
   box-sizing: border-box;
@@ -116,12 +114,17 @@
 
   white-space: normal;
 
-  overflow-wrap: anywhere;
-  word-wrap: break-word;
+  /*
+   * Desktopon normál szóhatároknál törünk.
+   * A projects.ts-ben lévő soft hyphenek
+   * itt nem jelennek meg.
+   */
+  overflow-wrap: normal;
+  word-wrap: normal;
   word-break: normal;
 
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  hyphens: none;
+  -webkit-hyphens: none;
 }
 
 .description {
@@ -143,11 +146,8 @@
 
   white-space: normal;
 
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   word-break: normal;
-
-  hyphens: auto;
-  -webkit-hyphens: auto;
 }
 
 .technologies {
@@ -187,7 +187,7 @@
 
   white-space: normal;
 
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .actions {
@@ -285,8 +285,17 @@
   }
 
   .title {
+    width: 100%;
+    max-width: 100%;
+
     font-size:
       clamp(2rem, 5vw, 3.4rem);
+
+    overflow-wrap: normal;
+    word-break: normal;
+
+    hyphens: none;
+    -webkit-hyphens: none;
   }
 }
 
@@ -334,6 +343,8 @@
     max-width: 100%;
     min-width: 0;
 
+    box-sizing: border-box;
+
     margin-top: 26px;
 
     font-size:
@@ -347,12 +358,21 @@
 
     white-space: normal;
 
-    overflow-wrap: anywhere;
+    /*
+     * Mobilon engedélyezzük a projects.ts-ben
+     * elhelyezett soft hypheneket.
+     *
+     * Így például:
+     *
+     * alkalmazható-
+     * ságának
+     */
+    overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: normal;
 
-    hyphens: auto;
-    -webkit-hyphens: auto;
+    hyphens: manual;
+    -webkit-hyphens: manual;
   }
 
   .description {
@@ -363,6 +383,8 @@
 
     font-size: 1rem;
     line-height: 1.65;
+
+    overflow-wrap: break-word;
   }
 
   .technologies {
@@ -407,6 +429,12 @@
       );
 
     line-height: 1.2;
+
+    overflow-wrap: break-word;
+    word-break: normal;
+
+    hyphens: manual;
+    -webkit-hyphens: manual;
   }
 
   .description {
@@ -448,6 +476,9 @@
     font-size: 1.35rem;
 
     line-height: 1.22;
+
+    hyphens: manual;
+    -webkit-hyphens: manual;
   }
 
   .technology {
