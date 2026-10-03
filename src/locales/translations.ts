@@ -65,7 +65,7 @@ export const translations = {
         title: 'Elérhetőségek',
 
         description:
-          'Kapcsolatfelvételhez az alábbi elérhetőségeken és szakmai profilokon találsz meg.',
+          'Kapcsolatfelvétel az alábbi elérhetőségeken és szakmai profilokon lehetséges.',
 
         emailAddress:
           'E-mail cím',
@@ -90,10 +90,10 @@ export const translations = {
             'Üzenet küldése',
 
           description:
-            'Az alábbi űrlapon közvetlenül küldhetsz nekem üzenetet.',
+            'Az alábbi űrlapon közvetlenül is küldhető üzenet.',
 
           email:
-            'E-mail címed',
+            'E-mail cím',
 
           emailPlaceholder:
             'pelda@email.hu',
@@ -102,22 +102,22 @@ export const translations = {
             'Tárgy',
 
           subjectPlaceholder:
-            'Miről szeretnél írni?',
+            'Üzenet tárgya',
 
           message:
             'Üzenet',
 
           messagePlaceholder:
-            'Írd ide az üzeneted...',
+            'Üzenet szövege...',
 
           privacyPrefix:
-            'Az üzenet elküldésével tudomásul veszed az',
+            'Az üzenetküldésre az',
 
           privacyLink:
             'Adatkezelési tájékoztatóban',
 
           privacySuffix:
-            ' foglaltakat.',
+            ' foglaltak vonatkoznak.',
 
           cancel:
             'Mégse',
@@ -350,7 +350,7 @@ export const translations = {
         title: 'Contact',
 
         description:
-          'You can reach me through the contact details and professional profiles below.',
+          'Contact is available through the following channels and professional profiles.',
 
         emailAddress:
           'Email address',
@@ -375,10 +375,10 @@ export const translations = {
             'Send a message',
 
           description:
-            'You can send me a message directly using the form below.',
+            'The form below can be used to send a message directly.',
 
           email:
-            'Your email address',
+            'Email address',
 
           emailPlaceholder:
             'example@email.com',
@@ -387,16 +387,16 @@ export const translations = {
             'Subject',
 
           subjectPlaceholder:
-            'What would you like to discuss?',
+            'Message subject',
 
           message:
             'Message',
 
           messagePlaceholder:
-            'Write your message here...',
+            'Message...',
 
           privacyPrefix:
-            'By sending this message, you acknowledge the',
+            'Messages are handled in accordance with the',
 
           privacyLink:
             'Privacy Policy',
@@ -414,7 +414,7 @@ export const translations = {
             'Sending...',
 
           success:
-            'Your message has been sent successfully.',
+            'The message has been sent successfully.',
 
           error:
             'The message could not be sent. Please try again.',
