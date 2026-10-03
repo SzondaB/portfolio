@@ -22,38 +22,35 @@ function normalizeString(
     : ''
 }
 
-export default async function handler(
+function jsonResponse(
+  data: object,
+  status = 200,
+  headers?: HeadersInit
+): Response {
+  return Response.json(
+    data,
+    {
+      status,
+      headers
+    }
+  )
+}
+
+export async function POST(
   request: Request
 ): Promise<Response> {
-  if (request.method !== 'POST') {
-    return Response.json(
-      {
-        success: false,
-        message: 'Method not allowed.'
-      },
-      {
-        status: 405,
-        headers: {
-          Allow: 'POST'
-        }
-      }
-    )
-  }
-
   if (!process.env.RESEND_API_KEY) {
     console.error(
       'RESEND_API_KEY is not configured.'
     )
 
-    return Response.json(
+    return jsonResponse(
       {
         success: false,
         message:
           'The email service is not configured.'
       },
-      {
-        status: 500
-      }
+      500
     )
   }
 
@@ -63,14 +60,13 @@ export default async function handler(
     body =
       (await request.json()) as ContactRequestBody
   } catch {
-    return Response.json(
+    return jsonResponse(
       {
         success: false,
-        message: 'Invalid request body.'
+        message:
+          'Invalid request body.'
       },
-      {
-        status: 400
-      }
+      400
     )
   }
 
@@ -87,17 +83,15 @@ export default async function handler(
     normalizeString(body.company)
 
   /*
-   * Honeypot mező.
+   * Honeypot.
    *
-   * A normál felhasználó ezt nem látja,
-   * viszont az egyszerű botok gyakran
-   * automatikusan kitöltik.
-   *
-   * Ilyenkor úgy teszünk, mintha az
-   * üzenet sikeresen elment volna.
+   * Normál felhasználó nem tölti ki.
+   * Ha egy bot mégis kitölti,
+   * sikeres választ adunk, de
+   * nem küldünk e-mailt.
    */
   if (company) {
-    return Response.json({
+    return jsonResponse({
       success: true
     })
   }
@@ -107,14 +101,13 @@ export default async function handler(
     !EMAIL_REGEX.test(email) ||
     email.length > 254
   ) {
-    return Response.json(
+    return jsonResponse(
       {
         success: false,
-        message: 'Invalid email address.'
+        message:
+          'Invalid email address.'
       },
-      {
-        status: 400
-      }
+      400
     )
   }
 
@@ -122,14 +115,13 @@ export default async function handler(
     !subject ||
     subject.length > 150
   ) {
-    return Response.json(
+    return jsonResponse(
       {
         success: false,
-        message: 'Invalid subject.'
+        message:
+          'Invalid subject.'
       },
-      {
-        status: 400
-      }
+      400
     )
   }
 
@@ -137,14 +129,13 @@ export default async function handler(
     !message ||
     message.length > 5000
   ) {
-    return Response.json(
+    return jsonResponse(
       {
         success: false,
-        message: 'Invalid message.'
+        message:
+          'Invalid message.'
       },
-      {
-        status: 400
-      }
+      400
     )
   }
 
@@ -180,19 +171,22 @@ export default async function handler(
         error
       )
 
-      return Response.json(
+      return jsonResponse(
         {
           success: false,
           message:
             'The email could not be sent.'
         },
-        {
-          status: 500
-        }
+        500
       )
     }
 
-    return Response.json({
+    console.log(
+      'Contact email sent:',
+      data?.id
+    )
+
+    return jsonResponse({
       success: true,
       id: data?.id
     })
@@ -202,15 +196,13 @@ export default async function handler(
       error
     )
 
-    return Response.json(
+    return jsonResponse(
       {
         success: false,
         message:
           'The email could not be sent.'
       },
-      {
-        status: 500
-      }
+      500
     )
   }
 }
