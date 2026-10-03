@@ -44,9 +44,6 @@ function ContactModal({
   const [submitStatus, setSubmitStatus] =
     useState<SubmitStatus>('idle')
 
-  const emailInputRef =
-    useRef<HTMLInputElement | null>(null)
-
   const submitStatusRef =
     useRef<SubmitStatus>('idle')
 
@@ -89,16 +86,7 @@ function ContactModal({
       handleKeyDown
     )
 
-    const focusTimeout =
-      window.setTimeout(() => {
-        emailInputRef.current?.focus()
-      }, 100)
-
     return () => {
-      window.clearTimeout(
-        focusTimeout
-      )
-
       document.body.style.overflow =
         previousBodyOverflow
 
@@ -375,7 +363,6 @@ function ContactModal({
               </label>
 
               <input
-                ref={emailInputRef}
                 id="contact-email"
                 name="email"
                 type="email"
