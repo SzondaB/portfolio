@@ -27,6 +27,7 @@
 }
 
 .main {
+  width: 100%;
   max-width: 1200px;
 }
 
@@ -65,14 +66,34 @@
   line-height: 1.7;
 }
 
-.links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
 
-  gap: 42px;
+/* ========================
+   CONTACT AREA
+   ======================== */
+
+.contactArea {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+
+  gap: 20px;
 
   margin-top: 38px;
+}
+
+
+/* ========================
+   CONTACT LINKS
+   ======================== */
+
+.links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 42px;
 }
 
 .link,
@@ -143,16 +164,25 @@
     scaleX(1);
 }
 
+.emailToggle[aria-expanded="true"]::after {
+  transform:
+    scaleX(1);
+}
+
 
 /* ========================
    E-MAIL BLOKK
    ======================== */
 
-.emailContainer {
+.emailContent {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 
-  gap: 18px;
+  width: 100%;
+  min-width: 0;
+
+  gap: 14px;
 }
 
 .emailArea {
@@ -160,11 +190,15 @@
 
   display: flex;
   align-items: center;
+
+  min-width: 0;
 }
 
 .emailBox {
   display: flex;
   align-items: center;
+
+  min-width: 0;
 
   gap: 10px;
 
@@ -192,10 +226,19 @@
 
 .emailInput {
   width: 250px;
+  min-width: 0;
+
+  box-sizing: border-box;
 
   padding: 9px 10px;
 
   color:
+    var(--color-text);
+
+  -webkit-text-fill-color:
+    var(--color-text);
+
+  caret-color:
     var(--color-text);
 
   background: transparent;
@@ -203,7 +246,16 @@
   border: none;
   outline: none;
 
+  font: inherit;
   font-size: 0.95rem;
+}
+
+.emailInput::selection {
+  color:
+    var(--color-text);
+
+  background:
+    rgba(88, 166, 255, 0.35);
 }
 
 .copyButton {
@@ -279,6 +331,66 @@
 
 
 /* ========================
+   MESSAGE BUTTON
+   ======================== */
+
+.messageButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  min-height: 40px;
+
+  box-sizing: border-box;
+
+  padding: 9px 16px;
+
+  color:
+    var(--color-primary);
+
+  background:
+    rgba(88, 166, 255, 0.06);
+
+  border:
+    1px solid
+    rgba(88, 166, 255, 0.32);
+
+  border-radius:
+    var(--radius-small);
+
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.messageButton:hover {
+  color:
+    var(--color-primary-hover);
+
+  background:
+    rgba(88, 166, 255, 0.11);
+
+  border-color:
+    rgba(88, 166, 255, 0.55);
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* ========================
    FOOTER
    ======================== */
 
@@ -324,25 +436,7 @@
   }
 
   .links {
-    gap: 30px;
-  }
-}
-
-
-/* =========================
-   SMALL TABLET
-   ========================= */
-
-@media (max-width: 900px) {
-  .links {
-    align-items: flex-start;
-  }
-
-  .emailContainer {
-    flex-direction: column;
-    align-items: flex-start;
-
-    gap: 14px;
+    gap: 34px;
   }
 }
 
@@ -359,7 +453,8 @@
   }
 
   .content {
-    width: calc(100% - 32px);
+    width:
+      calc(100% - 32px);
 
     min-height: auto;
   }
@@ -390,22 +485,36 @@
     line-height: 1.65;
   }
 
-  .links {
-    flex-direction: column;
-    align-items: flex-start;
+  .contactArea {
+    width: 100%;
 
-    gap: 22px;
+    gap: 18px;
 
     margin-top: 32px;
   }
 
+  .links {
+    width: 100%;
+
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    gap: 28px;
+  }
+
   .link,
   .emailToggle {
+    flex-shrink: 0;
+
     font-size: 1rem;
   }
 
-  .emailContainer {
+  .emailContent {
     width: 100%;
+
+    flex-direction: column;
+    align-items: stretch;
 
     gap: 14px;
   }
@@ -417,26 +526,35 @@
   .emailBox {
     width: 100%;
 
+    box-sizing: border-box;
+
     gap: 8px;
   }
 
   .emailInput {
     flex: 1;
 
-    min-width: 0;
     width: auto;
+    min-width: 0;
   }
 
   .copyButton {
     min-width: 90px;
   }
 
+  .messageButton {
+    width: 100%;
+
+    min-height: 42px;
+
+    font-size: 0.9rem;
+  }
+
   .footer {
     margin-top: 64px;
 
     padding:
-      28px
-      0
+      28px 0
       24px;
   }
 }
@@ -452,7 +570,8 @@
   }
 
   .content {
-    width: calc(100% - 24px);
+    width:
+      calc(100% - 24px);
 
     min-height: auto;
   }
@@ -468,10 +587,19 @@
     line-height: 1.6;
   }
 
-  .links {
-    margin-top: 28px;
+  .contactArea {
+    gap: 16px;
 
-    gap: 20px;
+    margin-top: 28px;
+  }
+
+  .links {
+    gap: 24px;
+  }
+
+  .link,
+  .emailToggle {
+    font-size: 0.95rem;
   }
 
   .emailBox {
@@ -481,7 +609,7 @@
   .emailInput {
     padding: 8px;
 
-    font-size: 0.88rem;
+    font-size: 0.86rem;
   }
 
   .copyButton {
@@ -493,7 +621,15 @@
   }
 
   .copyMessage {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
+  }
+
+  .messageButton {
+    min-height: 40px;
+
+    padding: 8px 12px;
+
+    font-size: 0.84rem;
   }
 
   .footer {
@@ -515,17 +651,29 @@
     font-size: 2.2rem;
   }
 
+  .links {
+    gap: 18px;
+  }
+
+  .link,
+  .emailToggle {
+    font-size: 0.9rem;
+  }
+
   .emailInput {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
   }
 
   .copyButton {
     min-width: 72px;
 
     padding:
-      8px
-      7px;
+      8px 7px;
 
-    font-size: 0.76rem;
+    font-size: 0.74rem;
+  }
+
+  .messageButton {
+    font-size: 0.8rem;
   }
 }

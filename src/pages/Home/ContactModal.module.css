@@ -1,0 +1,869 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+
+  z-index: 5000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100dvh;
+
+  box-sizing: border-box;
+
+  padding: 24px;
+
+  overflow: hidden;
+
+  background:
+    rgba(5, 8, 13, 0.8);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+
+  animation:
+    backdropIn 180ms ease;
+}
+
+.modal {
+  position: relative;
+
+  width: 100%;
+  max-width: 560px;
+
+  max-height:
+    calc(100dvh - 48px);
+
+  box-sizing: border-box;
+
+  padding: 28px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  color:
+    var(--color-text);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(22, 27, 34, 0.98),
+      rgba(13, 17, 23, 0.99)
+    );
+
+  border:
+    1px solid
+    rgba(88, 166, 255, 0.24);
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 30px 90px
+    rgba(0, 0, 0, 0.58);
+
+  animation:
+    modalIn 220ms ease;
+}
+
+.modal::before {
+  content: "";
+
+  position: absolute;
+
+  width: 230px;
+  height: 230px;
+
+  top: -145px;
+  right: -90px;
+
+  background:
+    rgba(88, 166, 255, 0.13);
+
+  border-radius: 50%;
+
+  filter:
+    blur(70px);
+
+  pointer-events: none;
+}
+
+.header {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.heading {
+  min-width: 0;
+}
+
+.eyebrow {
+  margin: 0 0 7px;
+
+  color:
+    var(--color-primary);
+
+  font-size: 0.74rem;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+
+  font-size:
+    clamp(1.75rem, 4vw, 2.15rem);
+
+  line-height: 1.15;
+
+  overflow-wrap: break-word;
+}
+
+.description {
+  position: relative;
+
+  max-width: 470px;
+
+  margin: 15px 0 0;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.form {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
+
+  gap: 16px;
+
+  margin-top: 22px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
+
+  gap: 7px;
+}
+
+.label {
+  color:
+    var(--color-text);
+
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.input,
+.textarea {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  padding: 11px 13px;
+
+  color:
+    var(--color-text);
+
+  -webkit-text-fill-color:
+    var(--color-text);
+
+  caret-color:
+    var(--color-text);
+
+  background:
+    rgba(255, 255, 255, 0.035);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.1);
+
+  border-radius: 10px;
+
+  outline: none;
+
+  font: inherit;
+  font-size: 0.92rem;
+
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    box-shadow var(--transition),
+    opacity var(--transition);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color:
+    rgba(139, 148, 158, 0.72);
+
+  -webkit-text-fill-color:
+    rgba(139, 148, 158, 0.72);
+
+  opacity: 1;
+}
+
+
+/* =========================
+   CHROME / EDGE AUTOFILL
+   ========================= */
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:active {
+  color:
+    var(--color-text) !important;
+
+  -webkit-text-fill-color:
+    var(--color-text) !important;
+
+  caret-color:
+    var(--color-text);
+
+  background-color:
+    transparent !important;
+
+  -webkit-box-shadow:
+    0 0 0 1000px
+    #111923
+    inset !important;
+
+  box-shadow:
+    0 0 0 1000px
+    #111923
+    inset !important;
+
+  border-color:
+    rgba(255, 255, 255, 0.1);
+
+  transition:
+    background-color 9999s ease-out 0s;
+}
+
+.input:autofill {
+  color:
+    var(--color-text) !important;
+
+  -webkit-text-fill-color:
+    var(--color-text) !important;
+
+  caret-color:
+    var(--color-text);
+
+  box-shadow:
+    0 0 0 1000px
+    #111923
+    inset !important;
+
+  border-color:
+    rgba(255, 255, 255, 0.1);
+}
+
+
+/* =========================
+   HOVER
+   ========================= */
+
+.input:hover,
+.textarea:hover {
+  border-color:
+    rgba(255, 255, 255, 0.16);
+}
+
+
+/* =========================
+   FOCUS
+   ========================= */
+
+.input:focus,
+.textarea:focus {
+  color:
+    var(--color-text) !important;
+
+  -webkit-text-fill-color:
+    var(--color-text) !important;
+
+  caret-color:
+    var(--color-text);
+
+  background:
+    rgba(88, 166, 255, 0.045);
+
+  border-color:
+    rgba(88, 166, 255, 0.72);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(88, 166, 255, 0.1);
+}
+
+.input:-webkit-autofill:focus {
+  color:
+    var(--color-text) !important;
+
+  -webkit-text-fill-color:
+    var(--color-text) !important;
+
+  caret-color:
+    var(--color-text);
+
+  -webkit-box-shadow:
+    0 0 0 1000px
+      #111923 inset,
+    0 0 0 3px
+      rgba(88, 166, 255, 0.1)
+    !important;
+
+  box-shadow:
+    0 0 0 1000px
+      #111923 inset,
+    0 0 0 3px
+      rgba(88, 166, 255, 0.1)
+    !important;
+
+  border-color:
+    rgba(88, 166, 255, 0.72);
+}
+
+.input:autofill:focus {
+  color:
+    var(--color-text) !important;
+
+  -webkit-text-fill-color:
+    var(--color-text) !important;
+
+  caret-color:
+    var(--color-text);
+
+  border-color:
+    rgba(88, 166, 255, 0.72);
+}
+
+
+/* =========================
+   SELECTION
+   ========================= */
+
+.input::selection,
+.textarea::selection {
+  color:
+    var(--color-text);
+
+  background:
+    rgba(88, 166, 255, 0.35);
+}
+
+.textarea {
+  min-height: 118px;
+  max-height: 240px;
+
+  resize: vertical;
+
+  line-height: 1.55;
+}
+
+
+/* =========================
+   HONEYPOT
+   ========================= */
+
+.honeypotField {
+  position: absolute;
+
+  left: -10000px;
+  top: auto;
+
+  width: 1px;
+  height: 1px;
+
+  overflow: hidden;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+
+/* =========================
+   STATUS
+   ========================= */
+
+.errorMessage {
+  margin: 0;
+
+  padding: 12px 14px;
+
+  color:
+    #ffb4b4;
+
+  font-size: 0.88rem;
+  line-height: 1.5;
+
+  background:
+    rgba(255, 80, 80, 0.08);
+
+  border:
+    1px solid
+    rgba(255, 100, 100, 0.22);
+
+  border-radius: 10px;
+}
+
+.successState {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  gap: 18px;
+
+  padding:
+    30px 0 4px;
+
+  text-align: center;
+}
+
+.successIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 54px;
+  height: 54px;
+
+  flex-shrink: 0;
+
+  color:
+    #7ee787;
+
+  font-size: 1.7rem;
+  font-weight: 700;
+
+  background:
+    rgba(46, 160, 67, 0.12);
+
+  border:
+    1px solid
+    rgba(126, 231, 135, 0.28);
+
+  border-radius: 50%;
+}
+
+.successMessage {
+  max-width: 420px;
+
+  margin: 0;
+
+  color:
+    var(--color-text);
+
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   DISABLED
+   ========================= */
+
+.input:disabled,
+.textarea:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.62;
+}
+
+.cancelButton:disabled,
+.sendButton:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.62;
+
+  transform: none;
+}
+
+.cancelButton:disabled:hover,
+.sendButton:disabled:hover {
+  transform: none;
+}
+
+
+/* =========================
+   FOOTER
+   ========================= */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: 100%;
+
+  gap: 10px;
+
+  margin-top: 2px;
+}
+
+.cancelButton,
+.sendButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+
+  box-sizing: border-box;
+
+  padding: 9px 17px;
+
+  border-radius:
+    var(--radius-small);
+
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition),
+    opacity var(--transition);
+}
+
+.cancelButton {
+  color:
+    var(--color-text-secondary);
+
+  background:
+    transparent;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.1);
+}
+
+.cancelButton:hover:not(:disabled) {
+  color:
+    var(--color-text);
+
+  background:
+    rgba(255, 255, 255, 0.05);
+
+  border-color:
+    rgba(255, 255, 255, 0.16);
+
+  transform:
+    translateY(-1px);
+}
+
+.sendButton {
+  color:
+    var(--color-background);
+
+  background:
+    var(--color-primary);
+
+  border:
+    1px solid
+    var(--color-primary);
+}
+
+.sendButton:hover:not(:disabled) {
+  background:
+    var(--color-primary-hover);
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* =========================
+   ANIMATIONS
+   ========================= */
+
+@keyframes backdropIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(12px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =========================
+   TABLET / MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+  .backdrop {
+    padding: 14px;
+  }
+
+  .modal {
+    max-width: 100%;
+
+    max-height:
+      calc(100dvh - 28px);
+
+    padding: 22px;
+
+    border-radius: 18px;
+  }
+
+  .title {
+    font-size:
+      clamp(1.6rem, 7vw, 1.9rem);
+  }
+
+  .description {
+    margin-top: 13px;
+
+    font-size: 0.88rem;
+  }
+
+  .form {
+    gap: 14px;
+
+    margin-top: 19px;
+  }
+
+  .textarea {
+    min-height: 105px;
+    max-height: 180px;
+  }
+
+  .successState {
+    padding-top: 26px;
+  }
+}
+
+
+/* =========================
+   SMALL MOBILE
+   ========================= */
+
+@media (max-width: 480px) {
+  .backdrop {
+    padding: 10px;
+  }
+
+  .modal {
+    max-height:
+      calc(100dvh - 20px);
+
+    padding: 18px;
+
+    border-radius: 16px;
+  }
+
+  .eyebrow {
+    margin-bottom: 5px;
+
+    font-size: 0.66rem;
+  }
+
+  .title {
+    font-size:
+      clamp(1.4rem, 7vw, 1.65rem);
+
+    line-height: 1.16;
+  }
+
+  .description {
+    margin-top: 11px;
+
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  .form {
+    gap: 12px;
+
+    margin-top: 16px;
+  }
+
+  .field {
+    gap: 5px;
+  }
+
+  .label {
+    font-size: 0.82rem;
+  }
+
+  .input,
+  .textarea {
+    padding: 9px 10px;
+
+    font-size: 0.86rem;
+  }
+
+  .textarea {
+    min-height: 95px;
+    max-height: 150px;
+  }
+
+  .footer {
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    margin-top: 1px;
+  }
+
+  .cancelButton,
+  .sendButton {
+    width: auto;
+
+    min-height: 38px;
+
+    padding: 8px 15px;
+
+    font-size: 0.84rem;
+  }
+
+  .errorMessage {
+    padding: 10px 12px;
+
+    font-size: 0.82rem;
+  }
+
+  .successState {
+    gap: 15px;
+
+    padding:
+      22px 0 2px;
+  }
+
+  .successIcon {
+    width: 50px;
+    height: 50px;
+
+    font-size: 1.55rem;
+  }
+
+  .successMessage {
+    font-size: 0.88rem;
+  }
+}
+
+
+/* =========================
+   VERY SMALL MOBILE
+   ========================= */
+
+@media (max-width: 360px) {
+  .backdrop {
+    padding: 8px;
+  }
+
+  .modal {
+    max-height:
+      calc(100dvh - 16px);
+
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 1.35rem;
+  }
+
+  .description {
+    font-size: 0.8rem;
+  }
+
+  .form {
+    gap: 10px;
+
+    margin-top: 14px;
+  }
+
+  .textarea {
+    min-height: 85px;
+  }
+
+  .cancelButton,
+  .sendButton {
+    padding:
+      8px 12px;
+
+    font-size: 0.8rem;
+  }
+
+  .successIcon {
+    width: 46px;
+    height: 46px;
+
+    font-size: 1.4rem;
+  }
+}
+
+
+/* =========================
+   REDUCED MOTION
+   ========================= */
+
+@media (
+  prefers-reduced-motion: reduce
+) {
+  .backdrop,
+  .modal {
+    animation: none;
+  }
+}

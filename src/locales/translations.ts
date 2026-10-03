@@ -67,11 +67,67 @@ export const translations = {
         description:
           'Kapcsolatfelvételhez az alábbi elérhetőségeken és szakmai profilokon találsz meg.',
 
-        emailAddress: 'E-mail cím',
-        copy: 'Másolás',
-        copied: 'Kimásolva',
+        emailAddress:
+          'E-mail cím',
+
+        copy:
+          'Másolás',
+
+        copied:
+          'Kimásolva',
+
         copiedMessage:
-          '✓ E-mail cím kimásolva'
+          '✓ E-mail cím kimásolva',
+
+        sendMessage:
+          'Üzenet küldése',
+
+        modal: {
+          eyebrow:
+            'KAPCSOLATFELVÉTEL',
+
+          title:
+            'Üzenet küldése',
+
+          description:
+            'Az alábbi űrlapon közvetlenül küldhetsz nekem üzenetet.',
+
+          email:
+            'E-mail címed',
+
+          emailPlaceholder:
+            'pelda@email.hu',
+
+          subject:
+            'Tárgy',
+
+          subjectPlaceholder:
+            'Miről szeretnél írni?',
+
+          message:
+            'Üzenet',
+
+          messagePlaceholder:
+            'Írd ide az üzeneted...',
+
+          cancel:
+            'Mégse',
+
+          send:
+            'Küldés',
+
+          sending:
+            'Küldés...',
+
+          success:
+            'Az üzenet sikeresen elküldve.',
+
+          error:
+            'Az üzenetet nem sikerült elküldeni. Kérlek, próbáld újra.',
+
+          close:
+            'Bezárás'
+        }
       }
     },
 
@@ -129,7 +185,8 @@ export const translations = {
     },
 
     certificates: {
-      eyebrow: 'TANÚSÍTVÁNYOK',
+      eyebrow:
+        'TANÚSÍTVÁNYOK',
 
       title:
         'Szakmai képzések és tanúsítványok',
@@ -286,16 +343,73 @@ export const translations = {
         description:
           'You can reach me through the contact details and professional profiles below.',
 
-        emailAddress: 'Email address',
-        copy: 'Copy',
-        copied: 'Copied',
+        emailAddress:
+          'Email address',
+
+        copy:
+          'Copy',
+
+        copied:
+          'Copied',
+
         copiedMessage:
-          '✓ Email address copied'
+          '✓ Email address copied',
+
+        sendMessage:
+          'Send message',
+
+        modal: {
+          eyebrow:
+            'GET IN TOUCH',
+
+          title:
+            'Send a message',
+
+          description:
+            'You can send me a message directly using the form below.',
+
+          email:
+            'Your email address',
+
+          emailPlaceholder:
+            'example@email.com',
+
+          subject:
+            'Subject',
+
+          subjectPlaceholder:
+            'What would you like to discuss?',
+
+          message:
+            'Message',
+
+          messagePlaceholder:
+            'Write your message here...',
+
+          cancel:
+            'Cancel',
+
+          send:
+            'Send',
+
+          sending:
+            'Sending...',
+
+          success:
+            'Your message has been sent successfully.',
+
+          error:
+            'The message could not be sent. Please try again.',
+
+          close:
+            'Close'
+        }
       }
     },
 
     projects: {
-      eyebrow: 'PROJECTS',
+      eyebrow:
+        'PROJECTS',
 
       title:
         'Development and research projects',
@@ -340,15 +454,23 @@ export const translations = {
         'Key elements of the project',
 
       statuses: {
-        active: 'Active development',
-        completed: 'Completed',
-        paused: 'Paused',
-        archived: 'Archived'
+        active:
+          'Active development',
+
+        completed:
+          'Completed',
+
+        paused:
+          'Paused',
+
+        archived:
+          'Archived'
       }
     },
 
     certificates: {
-      eyebrow: 'CERTIFICATES',
+      eyebrow:
+        'CERTIFICATES',
 
       title:
         'Professional courses and certificates',
