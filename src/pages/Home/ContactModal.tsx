@@ -21,6 +21,8 @@ type SubmitStatus =
   | 'success'
   | 'error'
 
+const REQUEST_TIMEOUT_MS = 10_000
+
 function ContactModal({
   isOpen,
   onClose
@@ -45,6 +47,14 @@ function ContactModal({
   const emailInputRef =
     useRef<HTMLInputElement | null>(null)
 
+  const submitStatusRef =
+    useRef<SubmitStatus>('idle')
+
+  useEffect(() => {
+    submitStatusRef.current =
+      submitStatus
+  }, [submitStatus])
+
   useEffect(() => {
     if (!isOpen) {
       return
@@ -67,7 +77,8 @@ function ContactModal({
     ) => {
       if (
         event.key === 'Escape' &&
-        submitStatus !== 'sending'
+        submitStatusRef.current !==
+          'sending'
       ) {
         onClose()
       }
@@ -101,8 +112,7 @@ function ContactModal({
     }
   }, [
     isOpen,
-    onClose,
-    submitStatus
+    onClose
   ])
 
   useEffect(() => {
@@ -128,6 +138,14 @@ function ContactModal({
 
     setSubmitStatus('sending')
 
+    const controller =
+      new AbortController()
+
+    const timeoutId =
+      window.setTimeout(() => {
+        controller.abort()
+      }, REQUEST_TIMEOUT_MS)
+
     try {
       const response = await fetch(
         '/api/contact',
@@ -144,21 +162,27 @@ function ContactModal({
             subject,
             message,
             company
-          })
+          }),
+
+          signal:
+            controller.signal
         }
       )
+
+      if (!response.ok) {
+        throw new Error(
+          `Contact request failed with status ${response.status}`
+        )
+      }
 
       const data =
         (await response.json()) as {
           success?: boolean
         }
 
-      if (
-        !response.ok ||
-        !data.success
-      ) {
+      if (!data.success) {
         throw new Error(
-          `Contact request failed with status ${response.status}`
+          'Contact request was not successful.'
         )
       }
 
@@ -169,12 +193,25 @@ function ContactModal({
 
       setSubmitStatus('success')
     } catch (error) {
-      console.error(
-        'Contact form error:',
-        error
-      )
+      if (
+        error instanceof DOMException &&
+        error.name === 'AbortError'
+      ) {
+        console.error(
+          'Contact request timed out.'
+        )
+      } else {
+        console.error(
+          'Contact form error:',
+          error
+        )
+      }
 
       setSubmitStatus('error')
+    } finally {
+      window.clearTimeout(
+        timeoutId
+      )
     }
   }
 

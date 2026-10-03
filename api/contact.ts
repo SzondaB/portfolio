@@ -7,6 +7,8 @@ const resend = new Resend(
 const EMAIL_REGEX =
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+const MAX_REQUEST_SIZE = 10_000
+
 interface ContactRequestBody {
   email?: unknown
   subject?: unknown
@@ -24,33 +26,119 @@ function normalizeString(
 
 function jsonResponse(
   data: object,
-  status = 200,
-  headers?: HeadersInit
+  status = 200
 ): Response {
   return Response.json(
     data,
     {
       status,
-      headers
+      headers: {
+        'Cache-Control':
+          'no-store'
+      }
     }
+  )
+}
+
+function errorResponse(
+  status: number
+): Response {
+  return jsonResponse(
+    {
+      success: false,
+      message:
+        'The request could not be processed.'
+    },
+    status
   )
 }
 
 export async function POST(
   request: Request
 ): Promise<Response> {
+  /*
+   * A kapcsolatfelvételi API kizárólag
+   * JSON kéréseket fogad.
+   */
+  const contentType =
+    request.headers.get(
+      'content-type'
+    )
+
+  if (
+    !contentType
+      ?.toLowerCase()
+      .startsWith(
+        'application/json'
+      )
+  ) {
+    return errorResponse(415)
+  }
+
+  /*
+   * Ha a Content-Length alapján már
+   * biztosan túl nagy a kérés,
+   * nem dolgozzuk fel.
+   */
+  const contentLength =
+    request.headers.get(
+      'content-length'
+    )
+
+  if (contentLength) {
+    const parsedContentLength =
+      Number(contentLength)
+
+    if (
+      !Number.isFinite(
+        parsedContentLength
+      ) ||
+      parsedContentLength < 0 ||
+      parsedContentLength >
+        MAX_REQUEST_SIZE
+    ) {
+      return errorResponse(413)
+    }
+  }
+
   if (!process.env.RESEND_API_KEY) {
     console.error(
       'RESEND_API_KEY is not configured.'
     )
 
-    return jsonResponse(
-      {
-        success: false,
-        message:
-          'The email service is not configured.'
-      },
-      500
+    return errorResponse(500)
+  }
+
+  /*
+   * A body-t először szövegként
+   * olvassuk be, így a tényleges
+   * méretét is ellenőrizhetjük.
+   *
+   * A Content-Length önmagában
+   * nem biztonsági garancia.
+   */
+  let rawBody: string
+
+  try {
+    rawBody =
+      await request.text()
+  } catch {
+    return errorResponse(400)
+  }
+
+  const bodySize =
+    new TextEncoder()
+      .encode(rawBody)
+      .byteLength
+
+  if (
+    bodySize === 0 ||
+    bodySize > MAX_REQUEST_SIZE
+  ) {
+    return errorResponse(
+      bodySize > MAX_REQUEST_SIZE
+        ? 413
+        : 400
     )
   }
 
@@ -58,16 +146,23 @@ export async function POST(
 
   try {
     body =
-      (await request.json()) as ContactRequestBody
+      JSON.parse(
+        rawBody
+      ) as ContactRequestBody
   } catch {
-    return jsonResponse(
-      {
-        success: false,
-        message:
-          'Invalid request body.'
-      },
-      400
-    )
+    return errorResponse(400)
+  }
+
+  /*
+   * Csak egyszerű JSON objektumot
+   * fogadunk el.
+   */
+  if (
+    typeof body !== 'object' ||
+    body === null ||
+    Array.isArray(body)
+  ) {
+    return errorResponse(400)
   }
 
   const email =
@@ -85,10 +180,12 @@ export async function POST(
   /*
    * Honeypot.
    *
-   * Normál felhasználó nem tölti ki.
-   * Ha egy bot mégis kitölti,
-   * sikeres választ adunk, de
-   * nem küldünk e-mailt.
+   * Normál felhasználó nem látja
+   * és nem tölti ki ezt a mezőt.
+   *
+   * Ha egy egyszerű bot kitölti,
+   * sikeres választ kap, de email
+   * nem kerül elküldésre.
    */
   if (company) {
     return jsonResponse({
@@ -96,47 +193,34 @@ export async function POST(
     })
   }
 
+  /*
+   * Szerveroldali validáció.
+   *
+   * A frontend korlátai nem
+   * tekinthetők biztonsági
+   * védelemnek, mert közvetlen
+   * HTTP kéréssel megkerülhetők.
+   */
   if (
     !email ||
     !EMAIL_REGEX.test(email) ||
     email.length > 254
   ) {
-    return jsonResponse(
-      {
-        success: false,
-        message:
-          'Invalid email address.'
-      },
-      400
-    )
+    return errorResponse(400)
   }
 
   if (
     !subject ||
     subject.length > 150
   ) {
-    return jsonResponse(
-      {
-        success: false,
-        message:
-          'Invalid subject.'
-      },
-      400
-    )
+    return errorResponse(400)
   }
 
   if (
     !message ||
     message.length > 5000
   ) {
-    return jsonResponse(
-      {
-        success: false,
-        message:
-          'Invalid message.'
-      },
-      400
-    )
+    return errorResponse(400)
   }
 
   try {
@@ -167,28 +251,24 @@ export async function POST(
 
     if (error) {
       console.error(
-        'Resend error:',
-        error
+        'Resend email sending failed.'
       )
 
-      return jsonResponse(
-        {
-          success: false,
-          message:
-            'The email could not be sent.'
-        },
-        500
-      )
+      return errorResponse(500)
     }
 
+    /*
+     * Az email azonosítóját nem
+     * szükséges elküldenünk a
+     * böngészőnek.
+     */
     console.log(
       'Contact email sent:',
       data?.id
     )
 
     return jsonResponse({
-      success: true,
-      id: data?.id
+      success: true
     })
   } catch (error) {
     console.error(
@@ -196,13 +276,6 @@ export async function POST(
       error
     )
 
-    return jsonResponse(
-      {
-        success: false,
-        message:
-          'The email could not be sent.'
-      },
-      500
-    )
+    return errorResponse(500)
   }
 }
