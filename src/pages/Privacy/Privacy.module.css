@@ -1,0 +1,139 @@
+.page {
+  min-height: 100vh;
+  padding: 8rem 1.5rem 5rem;
+}
+
+.container {
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 3.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #60a5fa;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: #f8fafc;
+}
+
+.intro {
+  max-width: 760px;
+  margin: 1.5rem 0 0;
+  color: #aeb9c9;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.updated {
+  margin: 1rem 0 0;
+  color: #718096;
+  font-size: 0.88rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.section {
+  padding: 2rem;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.58);
+  backdrop-filter: blur(12px);
+}
+
+.section h2 {
+  margin: 0 0 1rem;
+  color: #f1f5f9;
+  font-size: 1.3rem;
+}
+
+.section h3 {
+  margin: 0 0 0.65rem;
+  color: #e2e8f0;
+  font-size: 1rem;
+}
+
+.section p,
+.section li {
+  color: #aeb9c9;
+  line-height: 1.75;
+}
+
+.section p {
+  margin: 0.75rem 0 0;
+}
+
+.section ul {
+  margin: 1rem 0 0;
+  padding-left: 1.4rem;
+}
+
+.section li + li {
+  margin-top: 0.45rem;
+}
+
+.section a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.section a:hover {
+  text-decoration: underline;
+}
+
+.infoBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 1rem;
+  padding: 1rem 1.15rem;
+  border-left: 3px solid #60a5fa;
+  border-radius: 0 10px 10px 0;
+  background: rgba(96, 165, 250, 0.06);
+  color: #aeb9c9;
+}
+
+.infoBox strong {
+  color: #f1f5f9;
+}
+
+.provider {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 6.5rem 1rem 3rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .section {
+    padding: 1.4rem;
+    border-radius: 14px;
+  }
+
+  .intro {
+    font-size: 0.98rem;
+  }
+}

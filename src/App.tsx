@@ -10,6 +10,7 @@ import Projects from './pages/Projects/Projects'
 import ProjectDetails from './pages/ProjectDetails/ProjectDetails'
 import Certificates from './pages/Certificates/Certificates'
 import CV from './pages/CV/CV'
+import Privacy from './pages/Privacy/Privacy'
 import NotFound from './pages/NotFound/NotFound'
 
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: '/cv',
         element: <CV />
+      },
+      {
+        path: '/privacy',
+        element: <Privacy />
       },
       {
         path: '*',

@@ -412,6 +412,49 @@
   pointer-events: none;
 }
 
+/* =========================
+   PRIVACY NOTICE
+   ========================= */
+
+.privacyNotice {
+  margin: -2px 0 0;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.privacyLink {
+  color:
+    var(--color-primary);
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    color var(--transition),
+    text-decoration-color var(--transition);
+}
+
+.privacyLink:hover {
+  color:
+    var(--color-primary-hover);
+
+  text-decoration: underline;
+}
+
+.privacyLink:focus-visible {
+  outline:
+    2px solid
+    var(--color-primary);
+
+  outline-offset: 3px;
+
+  border-radius: 3px;
+}
 
 /* =========================
    STATUS
@@ -702,6 +745,11 @@
 @media (max-width: 480px) {
   .backdrop {
     padding: 10px;
+  }
+
+  .privacyNotice {
+    font-size: 0.74rem;
+    line-height: 1.45;
   }
 
   .modal {

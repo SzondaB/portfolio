@@ -110,6 +110,15 @@ export const translations = {
           messagePlaceholder:
             'Írd ide az üzeneted...',
 
+          privacyPrefix:
+            'Az üzenet elküldésével tudomásul veszed az',
+
+          privacyLink:
+            'Adatkezelési tájékoztatóban',
+
+          privacySuffix:
+            ' foglaltakat.',
+
           cancel:
             'Mégse',
 
@@ -385,6 +394,15 @@ export const translations = {
 
           messagePlaceholder:
             'Write your message here...',
+
+          privacyPrefix:
+            'By sending this message, you acknowledge the',
+
+          privacyLink:
+            'Privacy Policy',
+
+          privacySuffix:
+            '.',
 
           cancel:
             'Cancel',

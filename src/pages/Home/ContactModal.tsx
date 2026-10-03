@@ -496,6 +496,36 @@ function ContactModal({
               )
             }
 
+            <p
+              className={
+                styles.privacyNotice
+              }
+            >
+              {
+                t.home.contact.modal
+                  .privacyPrefix
+              }{' '}
+
+              <a
+                href="/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={
+                  styles.privacyLink
+                }
+              >
+                {
+                  t.home.contact.modal
+                    .privacyLink
+                }
+              </a>
+
+              {
+                t.home.contact.modal
+                  .privacySuffix
+              }
+            </p>
+
             <div
               className={styles.footer}
             >
