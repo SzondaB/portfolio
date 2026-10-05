@@ -24,7 +24,10 @@ function ContactSection() {
   const { t } = useLanguage()
 
   const [showEmail, setShowEmail] =
-    useState(false)
+  useState(false)
+
+const [closingEmail, setClosingEmail] =
+  useState(false)
 
   const [copied, setCopied] =
     useState(false)
@@ -55,9 +58,18 @@ function ContactSection() {
   }
 
   const toggleEmail = () => {
-    setShowEmail(
-      previous => !previous
-    )
+    if (showEmail) {
+      setClosingEmail(true)
+
+      window.setTimeout(() => {
+        setShowEmail(false)
+        setClosingEmail(false)
+      }, 550)
+    }
+    else {
+      setClosingEmail(false)
+      setShowEmail(true)
+    }
 
     setCopied(false)
   }
@@ -132,11 +144,13 @@ function ContactSection() {
                 </a>
               </div>
 
-              {showEmail && (
+              {(showEmail || closingEmail) && (
                 <div
-                  className={
-                    styles.emailContent
-                  }
+                  className={`${styles.emailContent} ${
+                    closingEmail
+                      ? styles.emailContentClosing
+                      : styles.emailContentOpening
+                  }`}
                 >
                   <div
                     className={
