@@ -15,6 +15,7 @@ export const cvDocuments: CVDocument[] = [
     title: 'Angol nyelvű önéletrajz',
     language: 'Angol',
     year: 2026,
-    available: false
+    available: true,
+    file: '/cv/Szonda_Benjamin_Mark_eng.pdf'
   }
 ]
